@@ -1,0 +1,17 @@
+﻿<Window x:Class="HLAE_Panorama_Tool.Tests.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HLAE_Panorama_Tool.Tests"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid>
+        <DockPanel>
+            <Label DockPanel.Dock="Left" HorizontalAlignment="Center" Foreground="Black" Content="Label 1" Visibility="Visible"/>
+            <Label DockPanel.Dock="Right" HorizontalAlignment="Center" Foreground="Black" Content="Label 3"
+                   Visibility="Visible"/>
+            <Label DockPanel.Dock="Right" Width="200" HorizontalContentAlignment="Center" Foreground="Black" Content="Label 2"/>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,62 @@
+﻿<Window x:Class="HLAE_Panorama_Tool.ExportDiff"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Custom="clr-namespace:HLAE_Panorama_Tool.Custom_Controls"
+        mc:Ignorable="d"
+        Height="800" Width="1200"
+        MinHeight="800" MinWidth="1200"
+        Background="{StaticResource BackgroundDarkerBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <ComboBox Name="SnapshotBox" Width="200" DropDownClosed="SnapshotBox_DropDownClosed">
+                <ComboBoxItem Name="SnapshotBoxDiv" IsEnabled="False" Visibility="Collapsed">-------</ComboBoxItem>
+                <ComboBoxItem>Browse</ComboBoxItem>
+            </ComboBox>
+        </Grid>
+        
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="Include All" Click="IncludeAll_Click"/>
+                <Button Content="Exclude All" Click="ExcludeAll_Click"/>
+                <Button Content="Invert Selection" Click="Invert_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0, 20, 0, -10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.Resources>
+                <Style TargetType="{x:Type Label}">
+                    <Setter Property="FontSize" Value="24"/>
+                    <Setter Property="Foreground" Value="{StaticResource OffWhiteBrush}"/>
+                    <Setter Property="FontFamily" Value="{StaticResource LatoThin}"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="Padding" Value="0"/>
+                </Style>
+            </Grid.Resources>
+            
+            <Label Grid.Column="0" Content="Modified Source"/>
+            <Label Grid.Column="1" Margin="-10,0,0,0" Content="Operation + Class"/>
+            <Label Grid.Column="2" Content="Snapshot Source"/>
+
+        </Grid>
+
+        <ScrollViewer Grid.Row="3" Margin="20" VerticalScrollBarVisibility="Auto" Background="#FF191B1F">
+            <StackPanel Margin="5" Name="DiffEntries"/>
+        </ScrollViewer>
+    </Grid>
+</Window>

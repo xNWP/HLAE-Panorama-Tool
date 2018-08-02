@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HLAE Panorama Tool", "HLAE Panorama Tool\HLAE Panorama Tool.csproj", "{A9E88881-7FA8-442F-B719-852AECBA8F4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9E88881-7FA8-442F-B719-852AECBA8F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9E88881-7FA8-442F-B719-852AECBA8F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9E88881-7FA8-442F-B719-852AECBA8F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9E88881-7FA8-442F-B719-852AECBA8F4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {24A51DD0-7D4D-4A5B-8BF6-D3B550E08FB2}
+	EndGlobalSection
+EndGlobal

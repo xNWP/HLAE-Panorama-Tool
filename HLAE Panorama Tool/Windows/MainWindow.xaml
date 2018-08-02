@@ -1,0 +1,238 @@
+﻿<Window x:Class="HLAE_Panorama_Tool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:HLAE_Panorama_Tool"
+        mc:Ignorable="d"
+        Height="300" Width="550"
+        MinHeight="300" MinWidth="550"
+        WindowStyle="None"
+        BorderThickness="3"
+        Background="{StaticResource BackgroundDarkBrush}"
+        AllowsTransparency="True"
+        LostKeyboardFocus="Window_LostKeyboardFocus"
+        GotKeyboardFocus="Window_GotKeyboardFocus"
+        StateChanged="Window_StateChanged"
+        Name="FullWindow">
+
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Foreground" Value="{StaticResource OffWhiteBrush}"/>
+        </Style>
+
+    </Window.Resources>
+    
+    <Window.Effect>
+        <DropShadowEffect Opacity="0.5" ShadowDepth="0" Color="#00C1EC"/>
+    </Window.Effect>
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome ResizeBorderThickness="5"
+                      CaptionHeight="24"/>
+    </WindowChrome.WindowChrome>
+
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="40"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Content="HLAE Panorama Tool"
+                   Grid.Column="0"
+                   FontFamily="{StaticResource LatoThin}"
+                   Margin="6, 0"
+                   VerticalAlignment="Center"/>
+
+            <!-- Escape -->
+            <Rectangle Name="Escape_BG" Grid.Column="3" Fill="{StaticResource MidGreyBrush}" Opacity="0"/>
+            <Image Name="Escape" Grid.Column="3" Source="/Resources/Images/escape_modern.png" Width="16" Height="16"
+                   Cursor="Hand"/>
+            <Rectangle Grid.Column="3" Fill="#00000000" MouseLeftButtonUp="Escape_MouseLeftButtonUp" Cursor="Hand" WindowChrome.IsHitTestVisibleInChrome="True">
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="Escape_BG" Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeftButtonDown">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Escape_BG" Duration="0" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource BlueClick}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeftButtonUp">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Escape_BG" Duration="0" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource MidGrey}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation To="0" Duration="0" Storyboard.TargetName="Escape_BG" Storyboard.TargetProperty="Opacity"/>
+                                <ColorAnimation Storyboard.TargetName="Escape_BG" Duration="0" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource MidGrey}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+
+            <!-- Maximize -->
+            <Rectangle Name="Maximize_BG" Grid.Column="2" Fill="{StaticResource MidGreyBrush}" Opacity="0"/>
+            <Image Name="Maximize" Grid.Column="2" Source="/Resources/Images/maximize.png" Width="16" Height="16"
+                   Cursor="Hand"/>
+            <Rectangle Grid.Column="2" Fill="#00000000" MouseLeftButtonUp="Maximize_MouseLeftButtonUp" Cursor="Hand" WindowChrome.IsHitTestVisibleInChrome="True">
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="Maximize_BG" Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeftButtonDown">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Maximize_BG" Duration="0" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource BlueClick}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeftButtonUp">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Maximize_BG" Duration="0" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource MidGrey}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation To="0" Duration="0" Storyboard.TargetName="Maximize_BG" Storyboard.TargetProperty="Opacity"/>
+                                <ColorAnimation Storyboard.TargetName="Maximize_BG" Duration="0" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource MidGrey}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+
+            <!-- Minimize -->
+            <Rectangle Name="Minimize_BG" Grid.Column="1" Fill="{StaticResource MidGreyBrush}" Opacity="0"/>
+            <Image Name="Minimize" Grid.Column="1" Source="/Resources/Images/minimize.png" Width="16" Height="16"
+                   Cursor="Hand"/>
+            <Rectangle Grid.Column="1" Fill="#00000000" MouseLeftButtonUp="Minimize_MouseLeftButtonUp" Cursor="Hand" WindowChrome.IsHitTestVisibleInChrome="True">
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="MouseEnter">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation To="1" Duration="0" Storyboard.TargetName="Minimize_BG" Storyboard.TargetProperty="Opacity"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeftButtonDown">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Minimize_BG" Duration="0" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource BlueClick}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeftButtonUp">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <ColorAnimation Storyboard.TargetName="Minimize_BG" Duration="0" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource MidGrey}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                    <EventTrigger RoutedEvent="MouseLeave">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation To="0" Duration="0" Storyboard.TargetName="Minimize_BG" Storyboard.TargetProperty="Opacity"/>
+                                <ColorAnimation Storyboard.TargetName="Minimize_BG" Duration="0" Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" To="{StaticResource MidGrey}"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>
+            </Rectangle>
+
+        </Grid>
+
+        <!-- Main Program -->
+        <Grid Grid.Row="1" Name="MainProgramGrid" Background="{StaticResource BackgroundDarkerBrush}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Button Menu -->
+            <Grid Grid.Column="0"
+                  Margin="25,0,0,0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Template" Value="{DynamicResource CustomButton}"/>
+                        <Setter Property="MinWidth" Value="160"/>
+                        <Setter Property="Height" Value="70"/>
+                        <Setter Property="Foreground" Value="{StaticResource OffWhiteBrush}"/>
+
+                    </Style>
+                </Grid.Resources>
+
+                <Button Name="pano_org_zip_btn"  Grid.Row="0" Grid.Column="0" Content="Generate panorama.org.zip" Margin="2" Click="pano_org_zip_Click"/>
+                <Button Name="pano_my_zip_btn" Grid.Row="0" Grid.Column="1" Content="Generate panorama.my.zip" Margin="2" Click="pano_my_zip_Click"/>
+                <Button Name="import_diff_btn" Grid.Row="1" Grid.Column="0" Content="Import Diff File" Margin="2"/>
+                <Button Name="export_diff_btn" Grid.Row="1" Grid.Column="1" Content="Export Diff File" Margin="2" Click="export_diff_btn_Click"/>
+                <Button Name="snapshot_btn" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Content="Create Snapshot" Margin="2" Click="snapshot_btn_Click"/>
+            </Grid>
+
+            <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Template" Value="{DynamicResource CustomButton}"/>
+                        <Setter Property="Foreground" Value="{StaticResource OffWhiteBrush}"/>
+                        <Setter Property="Margin" Value="5px"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Width="120px" Height="26px" Name="settings_btn" Content="Settings"/>
+                <Button Width="120px" Height="26px" Name="help_btn" Content="Help/About"/>
+            </StackPanel>
+
+            <Grid Grid.ColumnSpan="2" Name="StatusGrid" VerticalAlignment="Center" ClipToBounds="True"
+                  Height="{Binding Path=ActualHeight, ElementName=MainProgramGrid}"
+                  Width="{Binding Path=ActualWidth, ElementName=MainProgramGrid}"
+                  Visibility="Collapsed" Opacity="0">
+                <Rectangle Name="StatusBarDarken" Fill="Black" Opacity="0.55"/>
+                <Rectangle Name="StatusBar"
+                           Fill="{StaticResource MidGreyBrush}"
+                           Height="36">
+                    <Rectangle.Effect>
+                        <DropShadowEffect Color="#FF6800" ShadowDepth="0"/>
+                    </Rectangle.Effect>
+                </Rectangle>
+                <Label Name="StatusBarText" Content="Some Sample Text"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

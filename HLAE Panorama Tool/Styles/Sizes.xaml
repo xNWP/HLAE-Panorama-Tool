@@ -1,0 +1,11 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:HLAE_Panorama_Tool.Windows">
+
+    <Style x:Key="BrowseButton">
+        <Setter Property="Control.Width" Value="28"/>
+        <Setter Property="Control.Height" Value="26"/>
+        <Setter Property="Control.Margin" Value="8, 0"/>
+    </Style>
+
+</ResourceDictionary>
