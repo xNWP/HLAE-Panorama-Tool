@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -108,6 +109,42 @@ namespace HLAE_Panorama_Tool
             List<DifferenceObject> RealDifferences = new List<DifferenceObject>();
 
             ZipArchive SnapArch = ZipFile.OpenRead(Snapshot);
+
+            // Populate Differences
+            foreach (ZipArchiveEntry entry in SnapArch.Entries)
+            {
+                string fName = entry.FullName;
+                string lName = Directory.GetParent(Properties.Settings.Default.CSGOBinary.ToString()).ToString()
+                    + "\\csgo\\panorama\\" + entry.FullName;
+
+                Stream filestream = entry.Open();
+                Stream lfstream = File.OpenRead(lName);
+                SHA256Managed sha = new SHA256Managed();
+                byte[] hash = sha.ComputeHash(filestream);
+                SHA256Managed lsha = new SHA256Managed();
+                byte[] lhash = lsha.ComputeHash(lfstream);
+
+                Console.WriteLine(fName);
+
+                // Differences exist
+                if(!hash.SequenceEqual(lhash))
+                {
+                    // deflate stream must be reopened as it does not natively support seeking
+                    filestream.Close();
+                    filestream = entry.Open();
+                    lfstream.Seek(0, SeekOrigin.Begin);
+
+                    // Check for compatible file differences
+                    if(lName.ToLower().EndsWith("css"))
+                    {
+                        CSSDifferenceObject newDiff = new CSSDifferenceObject(lfstream, filestream);
+                        RealDifferences.Add(newDiff);
+                    }
+                }
+
+                lfstream.Close();
+                filestream.Close();
+            }
 
             foreach (DifferenceObject diffFile in RealDifferences)
             {

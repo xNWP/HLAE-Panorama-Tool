@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace HLAE_Panorama_Tool.Core.DiffGenerators
     {
         #region Methods
         protected abstract void Construct(string ChangedFilename, string StaticFilename);
+        protected abstract void Construct(Stream ChangedFilestream, Stream StaticFilestream);
 
         public List<Difference> Differences { get { return this.m_Differences; } }
         public string Filename{ get { return this.m_Filename; } }

@@ -17,6 +17,11 @@ namespace HLAE_Panorama_Tool.Core.DiffGenerators
             Construct(ChangedFilename, StaticFilename);
         }
 
+        public CSSDifferenceObject(Stream ChangedFilestream, Stream StaticFilestream)
+        {
+            Construct(ChangedFilestream, StaticFilestream);
+        }
+
         protected override void Construct(string ChangedFilename, string StaticFilename)
         {
             this.m_Filename = ChangedFilename;
@@ -39,6 +44,49 @@ namespace HLAE_Panorama_Tool.Core.DiffGenerators
                 {
                     // differences exist
                     if(SSClasses[entry.Key] != entry.Value)
+                    {
+                        Difference nd = new Difference(entry.Key, entry.Value, SSClasses[entry.Key]);
+                        this.m_Differences.Add(nd);
+                    }
+                    // remove from snapshots classes
+                    SSClasses.Remove(entry.Key);
+                }
+                else
+                {
+                    // This is a new class
+                    Difference nc = new Difference(entry.Key, entry.Value, null);
+                    this.m_Differences.Add(nc);
+                }
+            }
+
+            // Remaining snapshot classes must be deletions
+            foreach (KeyValuePair<string, string> entry in SSClasses)
+                this.m_Differences.Add(new Difference(entry.Key, null, entry.Value));
+        }
+
+        protected override void Construct(Stream ChangedFilestream, Stream StaticFilestream)
+        {
+            // This function does not follow DRY, will reimplement later :-b
+            this.m_Filename = ((FileStream)ChangedFilestream).Name;
+            this.m_Differences = new List<Difference>();
+
+            StreamReader ChangedStream = new StreamReader(ChangedFilestream);
+            StreamReader StaticStream = new StreamReader(StaticFilestream);
+
+            Dictionary<string, string> CSClasses = CSSFindClasses(ChangedStream);
+            Dictionary<string, string> SSClasses = CSSFindClasses(StaticStream);
+
+            ChangedStream.Close();
+            StaticStream.Close();
+
+            // Check where differences occur
+            foreach (KeyValuePair<string, string> entry in CSClasses)
+            {
+                // Key exists in both
+                if (SSClasses.ContainsKey(entry.Key))
+                {
+                    // differences exist
+                    if (SSClasses[entry.Key] != entry.Value)
                     {
                         Difference nd = new Difference(entry.Key, entry.Value, SSClasses[entry.Key]);
                         this.m_Differences.Add(nd);
